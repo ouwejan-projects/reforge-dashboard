@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Zegveld</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="page">
+  <header class="page-head">
+    <h1>Zegveld</h1>
+    <p class="page-sub">Omgeving Zegveld · gemeente Woerden</p>
+  </header>
+
+  <!-- Elke module is één <section class="module" id="mod-…"> met een eigen script dat erin rendert.
+       Een nieuwe module erbij: voeg hier een tweede <section> toe en laad zijn script onderaan.
+       Het grid (style.css, .modules) plaatst hem automatisch naast of onder de vorige. -->
+  <div class="modules">
+    <section class="module" id="mod-weer">
+      <noscript><p class="status">Voor deze module is JavaScript nodig.</p></noscript>
+    </section>
+  </div>
+</main>
+
+<script src="./weer.js" defer></script>
+</body>
+</html>

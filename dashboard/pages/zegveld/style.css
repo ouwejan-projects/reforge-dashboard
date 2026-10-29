@@ -1,0 +1,263 @@
+/* Zegveld-pagina: gedeelde stijl voor de pagina en alle modules.
+   Opbouw: 1. kleuren/basis  2. pagina + grid  3. module-kaart (kop, status, knoppen, tabel, voet)
+           4. module "weer". Een nieuwe module krijgt een eigen sectie onderaan en hergebruikt 1-3. */
+
+/* ---------- 1. Kleuren en basis ---------- */
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --fg: #1c2b3a;
+  --muted: #5a6a7a;
+  --line: rgba(28, 43, 58, 0.14);
+  --cell: #eef1f5;
+  --warn: #b45309;
+
+  --radius: 12px;
+  --gap: 16px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-emoji: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #182231;
+    --fg: #e6edf3;
+    --muted: #9aa7b8;
+    --line: rgba(230, 237, 243, 0.16);
+    --cell: #202c3d;
+    --warn: #f5b461;
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+/* Eigen dekkende achtergrond: het iframe volgt het OS-thema, niet altijd het dashboard-thema. */
+html { background: var(--bg); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 14px/1.45 var(--font);
+  -webkit-text-size-adjust: 100%;
+}
+
+a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--fg); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--muted);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- 2. Pagina en grid ---------- */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px 32px;
+}
+.page-head { margin-bottom: 18px; }
+.page-head h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 650;
+}
+.page-sub { margin: 2px 0 0; color: var(--muted); }
+
+/* Smal: 1 kolom. Breed: 2 kolommen; een module neemt één kolom, .module--breed beide. */
+.modules {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: start;
+}
+@media (min-width: 860px) {
+  .modules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .module--breed { grid-column: 1 / -1; }
+}
+
+/* ---------- 3. Module-kaart ---------- */
+.module {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.module-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.module-title { margin: 0; font-size: 16px; font-weight: 600; }
+.badge {
+  flex: none;
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 0 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: var(--warn);
+}
+.module-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.module-foot.is-stale .updated { color: var(--warn); }
+
+.section-title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Laad- en foutstatus */
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 160px;
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+}
+.status p { margin: 0; }
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--line);
+  border-top-color: var(--muted);
+  border-radius: 50%;
+  animation: draai 0.9s linear infinite;
+}
+@keyframes draai { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 3s; }
+}
+
+/* Knoppen */
+.btn {
+  font: inherit;
+  font-size: 13px;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 14px;
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) { background: var(--cell); }
+.btn:disabled { opacity: 0.6; cursor: default; }
+.btn--small { font-size: 12px; padding: 0 10px; line-height: 1.7; }
+
+/* Tabellen */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.table th {
+  padding: 0 6px 4px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.table td {
+  padding: 6px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line);
+}
+.table tbody tr:last-child td { border-bottom: 0; }
+.table .num { text-align: right; }
+.table .muted { color: var(--muted); }
+
+/* ---------- 4. Module "weer" ---------- */
+.weer { display: flex; flex-direction: column; gap: 16px; }
+
+.nu-hoofd { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.nu-icon { flex: none; font-size: 56px; line-height: 1; font-family: var(--font-emoji); }
+.nu-tekst { min-width: 0; }
+.nu-temp { font-size: 40px; line-height: 1.05; font-weight: 600; letter-spacing: -0.5px; white-space: nowrap; }
+.nu-omschr { color: var(--muted); overflow-wrap: anywhere; }
+
+.feiten {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0 24px;
+  margin: 0;
+}
+.feit {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+}
+.feit dt { color: var(--muted); white-space: nowrap; }
+.feit dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+
+.uren-scroll { overflow-x: auto; padding-bottom: 6px; }
+.uren {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.uur {
+  flex: 1 0 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 6px 4px;
+  background: var(--cell);
+  border-radius: 8px;
+  text-align: center;
+}
+.uur--nieuwe-dag { box-shadow: inset 2px 0 0 var(--muted); }
+.uur-tijd { font-size: 11px; line-height: 1.4; color: var(--muted); white-space: nowrap; }
+.uur-icon { font-size: 22px; line-height: 1.3; font-family: var(--font-emoji); }
+.uur-temp { font-weight: 600; white-space: nowrap; }
+.uur-pop { font-size: 11px; line-height: 1.4; color: var(--muted); white-space: nowrap; }
+
+.dag-naam { white-space: nowrap; }
+.dag-weer { display: flex; align-items: center; gap: 8px; }
+.dag-icon { flex: none; font-size: 22px; line-height: 1.2; font-family: var(--font-emoji); }
+.dag-omschr { color: var(--muted); }
+.table td.dag-temp, .table td.dag-regen { white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .page { padding: 14px 12px 24px; }
+  .module { padding: 12px; }
+  .nu-icon { font-size: 44px; }
+  .nu-temp { font-size: 34px; }
+  .dag-omschr { display: none; }
+}
