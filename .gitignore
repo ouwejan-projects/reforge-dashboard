@@ -1,0 +1,11 @@
+# Rommel die nooit in de geschiedenis hoort
+.DS_Store
+node_modules/
+__pycache__/
+*.log
+
+# Secrets — nooit committen. Zet ze in een .env en houd die lokaal.
+.env
+.env.*
+!.env.example
+*.pem
