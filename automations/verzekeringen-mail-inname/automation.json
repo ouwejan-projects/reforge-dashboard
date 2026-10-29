@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "name": "Dagelijkse mail-inname verzekeringen",
+  "description": "Scant elke ochtend de mail van de afgelopen 24 uur op PDF-bijlagen. Polisbladen, premienota's, verlengingsvoorstellen en groene kaarten gaan automatisch naar Verzekeringen; dubbele documenten worden overgeslagen. Alleen lezen in de mailbox.",
+  "agent": "hoofdagent",
+  "trigger": {
+    "type": "schedule",
+    "at": "07:30",
+    "days": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "task": {
+    "template": "insurance-mail-intake",
+    "options": {
+      "lookbackHours": 24,
+      "maxMessages": 50
+    }
+  },
+  "permissions": [
+    "mail.search",
+    "mail.getAttachment",
+    "insurance.ingest",
+    "notify"
+  ],
+  "mailbox": "own"
+}
