@@ -1,1 +1,1 @@
-{"pages":[{"slug":"zegveld","title":"Zegveld","description":"Voorbeeldpagina met modules voor de omgeving Zegveld: weer (later: verkeer)","icon":"LayoutDashboard"}],"widgets":[{"slug":"welkom","title":"Welkom bij Reforge","description":"Testwidget van het testinitiatief","height":140}]}
+{"pages":[{"slug":"zegveld","title":"Zegveld","description":"Voorbeeldpagina met modules voor de omgeving Zegveld: weer en verkeer","icon":"LayoutDashboard"}],"widgets":[{"slug":"welkom","title":"Welkom bij Reforge","description":"Testwidget van het testinitiatief","height":140}]}
