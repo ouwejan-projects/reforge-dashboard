@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "name": "Dictafoon-opnames uit OneDrive naar Fireflies",
+  "description": "Kijkt elke 2 uur in de OneDrive-map AI Config Oud/Dictafoon/audio of er nieuwe audio-opnames staan en stuurt er maximaal 3 per ronde naar Fireflies om te laten transcriberen (hooguit 36 per dag, onder de Fireflies-daglimiet van 50). Al verstuurde bestanden worden overgeslagen. Alleen lezen in OneDrive; er wordt niets verplaatst of verwijderd. Let op: de maandlimiet van 3.000 minuten bewaakt deze automatisering niet.",
+  "agent": "kim",
+  "trigger": { "type": "interval", "everyMinutes": 120 },
+  "task": { "template": "onedrive-to-fireflies", "options": { "maxFiles": 3 } },
+  "permissions": ["onedrive.list", "onedrive.read", "fireflies.upload", "notify"],
+  "onedrive": { "folder": "AI Config Oud/Dictafoon/audio" },
+  "mailbox": "own"
+}
