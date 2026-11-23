@@ -9,3 +9,10 @@ __pycache__/
 .env.*
 !.env.example
 *.pem
+
+# Fireflies-batch: audio, voortgang en transcripten nooit in git
+*.m4a
+*.wav
+fireflies-voortgang*.json
+fireflies-voortgang.lock
+transcripten/
